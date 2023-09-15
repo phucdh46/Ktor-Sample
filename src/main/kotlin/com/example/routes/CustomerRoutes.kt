@@ -22,7 +22,7 @@ import kotlinx.coroutines.*
 val customerStorage = mutableListOf<Customer>()
 
 fun Route.customerRouting() {
-    route("/customer") {
+    route("/") {
         get {
             if (customerStorage.isNotEmpty()) {
                 call.respond(customerStorage)
