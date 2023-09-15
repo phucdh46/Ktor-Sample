@@ -1,6 +1,7 @@
 package com.example.innertube.com.example.model
 
 import com.example.innertube.Innertube
+import com.example.innertube.models.PlayerResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -12,6 +13,21 @@ val customerStorage = mutableListOf<Customer>()
 data class ResponseClass(val code: String, val result: List<String>? = null)
 
 @Serializable
-data class ResponseSearch(val code: String, val size: Int? = 0,  val result: Innertube.ItemsPage<Innertube.SongItem>? = null)
+data class ResponseSearch(val code: String, val size: Int? = 0, val result: Innertube.ItemsPage<Innertube.SongItem>? = null)
 @Serializable
-data class ResponseRelated(val code: String, val size: Int? = 0,  val result: Innertube.RelatedPage? = null)
+data class ResponseRelated(val code: String, val size: Int? = 0, val result: Innertube.RelatedPage? = null)
+
+@Serializable
+data class ResponseQueue(val code: String,  val result: Innertube.SongItem? = null)
+@Serializable
+data class ResponsePlayListPage(val code: String,  val result: Innertube.PlaylistOrAlbumPage? = null)
+
+@Serializable
+data class ResponsePlayer(val code: String,  val result: PlayerResponse? = null)
+
+@Serializable
+data class ResponseLyric(val code: String,  val result: String? = null)
+@Serializable
+data class ResponseArtistPage(val code: String,  val result: Innertube.ArtistPage? = null)
+@Serializable
+data class ResponseAlbumPage(val code: String,  val result: Innertube.PlaylistOrAlbumPage? = null)

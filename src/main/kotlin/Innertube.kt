@@ -94,7 +94,7 @@ object Innertube {
             val FeaturedPlaylist = SearchFilter("EgeKAQQoADgBagwQDhAKEAMQBRAJEAQ%3D")
         }
     }
-
+    @Serializable
     sealed class Item {
         abstract val thumbnail: Thumbnail?
         abstract val key: String
@@ -112,7 +112,7 @@ object Innertube {
 
         companion object
     }
-
+    @Serializable
     data class VideoItem(
         val info: Info<NavigationEndpoint.Endpoint.Watch>?,
         val authors: List<Info<NavigationEndpoint.Endpoint.Browse>>?,
@@ -189,6 +189,7 @@ object Innertube {
         val singlesEndpoint: NavigationEndpoint.Endpoint.Browse?,
     )
 
+    @Serializable
     data class PlaylistOrAlbumPage(
         val title: String?,
         val authors: List<Info<NavigationEndpoint.Endpoint.Browse>>?,
@@ -198,7 +199,7 @@ object Innertube {
         val songsPage: ItemsPage<SongItem>?,
         val otherVersions: List<AlbumItem>?
     )
-
+    @Serializable
     data class NextPage(
         val itemsPage: ItemsPage<SongItem>?,
         val playlistId: String?,

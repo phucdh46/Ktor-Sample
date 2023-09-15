@@ -3,6 +3,8 @@ package com.example.innertube.utils
 import io.ktor.utils.io.CancellationException
 import com.example.innertube.Innertube
 import com.example.innertube.models.SectionListRenderer
+import com.example.innertube.models.bodies.ContinuationBody
+import com.example.innertube.requests.playlistPage
 
 internal fun SectionListRenderer.findSectionByTitle(text: String): SectionListRenderer.Content? {
     return contents?.find { content ->
@@ -48,3 +50,20 @@ infix operator fun <T : Innertube.Item> Innertube.ItemsPage<T>?.plus(other: Inne
         items = (this?.items?.plus(other.items ?: emptyList())
             ?: other.items)?.distinctBy(Innertube.Item::key)
     )
+
+suspend fun Result<Innertube.PlaylistOrAlbumPage>.completed(): Result<Innertube.PlaylistOrAlbumPage>? {
+    var playlistPage = getOrNull() ?: return null
+
+    while (playlistPage.songsPage?.continuation != null) {
+        val continuation = playlistPage.songsPage?.continuation!!
+        val otherPlaylistPageResult = Innertube.playlistPage(ContinuationBody(continuation = continuation)) ?: break
+
+        if (otherPlaylistPageResult.isFailure) break
+
+        otherPlaylistPageResult.getOrNull()?.let { otherSongsPage ->
+            playlistPage = playlistPage.copy(songsPage = playlistPage.songsPage + otherSongsPage)
+        }
+    }
+
+    return Result.success(playlistPage)
+}
