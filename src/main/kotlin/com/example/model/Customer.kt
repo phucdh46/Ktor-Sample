@@ -13,7 +13,7 @@ val customerStorage = mutableListOf<Customer>()
 data class ResponseClass(val code: String, val result: List<String>? = null)
 
 @Serializable
-data class ResponseSearch(val code: String, val size: Int? = 0, val result: Innertube.ItemsPage<Innertube.SongItem>? = null)
+data class ResponseSearch(val code: String, val size: Int? = 0, val result: Innertube.ItemsPage<Innertube.Item>? = null)
 @Serializable
 data class ResponseRelated(val code: String, val size: Int? = 0, val result: Innertube.RelatedPage? = null)
 
@@ -21,6 +21,9 @@ data class ResponseRelated(val code: String, val size: Int? = 0, val result: Inn
 data class ResponseQueue(val code: String,  val result: Innertube.SongItem? = null)
 @Serializable
 data class ResponsePlayListPage(val code: String,  val result: Innertube.PlaylistOrAlbumPage? = null)
+
+@Serializable
+data class ResponsePlayListPageContinuation(val code: String,  val result: Innertube.ItemsPage<Innertube.SongItem>? = null)
 
 @Serializable
 data class ResponsePlayer(val code: String,  val result: PlayerResponse? = null)
@@ -31,3 +34,9 @@ data class ResponseLyric(val code: String,  val result: String? = null)
 data class ResponseArtistPage(val code: String,  val result: Innertube.ArtistPage? = null)
 @Serializable
 data class ResponseAlbumPage(val code: String,  val result: Innertube.PlaylistOrAlbumPage? = null)
+
+@Serializable
+data class ResponseNextPage(val code: String, val size: Int? = 0,  val result: Innertube.NextPage? = null)
+
+@Serializable
+data class ResponseItemsPage(val code: String, val size: Int? = 0,  val result: Innertube.ItemsPage<Innertube.Item>? = null)
