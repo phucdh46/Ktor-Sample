@@ -93,27 +93,27 @@ fun Route.customerRouting() {
             call.respond(status = HttpStatusCode.OK, result)
         }
 
-        post("/continuation") {
-            val searchBody = call.receive<SearchBody>()
-            val type = when(searchBody.type) {
-                SearchType.ALBUM.value -> Innertube.AlbumItem::from
-                SearchType.ARTIST.value -> Innertube.ArtistItem::from
-                SearchType.VIDEO.value -> Innertube.VideoItem::from
-                SearchType.PLAYLIST.value -> Innertube.PlaylistItem::from
-                else -> Innertube.SongItem.Companion::from
-            }
-            val result = withContext(Dispatchers.Default) {
-                val searchPage = Innertube.searchPage(
-                    body = ContinuationBody(continuation = searchBody.query),
-                    fromMusicShelfRendererContent = type
-                )
-                println("searchPage $searchPage.")
-                searchPage?.getOrNull()?.let {
-                    ResponseSearch("ok", it.items?.size, it)
-                } ?: ResponseSearch("null")
-            }
-            call.respond(status = HttpStatusCode.OK, result)
-        }
+//        post("/continuation") {
+//            val searchBody = call.receive<SearchBody>()
+//            val type = when(searchBody.type) {
+//                SearchType.ALBUM.value -> Innertube.AlbumItem::from
+//                SearchType.ARTIST.value -> Innertube.ArtistItem::from
+//                SearchType.VIDEO.value -> Innertube.VideoItem::from
+//                SearchType.PLAYLIST.value -> Innertube.PlaylistItem::from
+//                else -> Innertube.SongItem.Companion::from
+//            }
+//            val result = withContext(Dispatchers.Default) {
+//                val searchPage = Innertube.searchPage(
+//                    body = ContinuationBody(continuation = searchBody.query),
+//                    fromMusicShelfRendererContent = type
+//                )
+//                println("searchPage $searchPage.")
+//                searchPage?.getOrNull()?.let {
+//                    ResponseSearch("ok", it.items?.size, it)
+//                } ?: ResponseSearch("null")
+//            }
+//            call.respond(status = HttpStatusCode.OK, result)
+//        }
     }
 
     //searchPageContinuation
@@ -137,7 +137,7 @@ fun Route.customerRouting() {
 //        }
 //    }
 
-    //Related Page
+    //Related Page M6n0XBJqLfM
     route("/related") {
         get("{videoId?}") {
             val id = call.parameters["videoId"]
@@ -172,38 +172,53 @@ fun Route.customerRouting() {
         }
     }
 
-    //playlistPage
+    //playlistPage UC08qAR-kyTJb8Xjwbo6C7ZQ
     route("/playlistPage") {
-        get("{browseId?}") {
-            val browseId = call.parameters["browseId"].orEmpty()
+//        get("{browseId?}") {
+//            val browseId = call.parameters["browseId"].orEmpty()
+//            val result = withContext(Dispatchers.Default) {
+//                // Do some asynchronous work here
+//                val songQueue = Innertube.playlistPage(BrowseBody(browseId = browseId))?.completed()?.getOrNull()
+//                println("searchPage $songQueue.")
+//                songQueue?.let {
+//                    ResponsePlayListPage("ok",  result = it)
+//                } ?: ResponsePlayListPage("null")
+//            }
+//            call.respond(status = HttpStatusCode.OK, result)
+//        }
+
+        post {
+            val browseBody = call.receive<BrowseBody>()
+
             val result = withContext(Dispatchers.Default) {
-                // Do some asynchronous work here
-                val songQueue = Innertube.playlistPage(BrowseBody(browseId = browseId))?.completed()?.getOrNull()
-                println("searchPage $songQueue.")
-                songQueue?.let {
-                    ResponsePlayListPage("ok",  result = it)
+                val playlistPage = Innertube.playlistPage(
+                    body = browseBody,
+                )
+                println("playlistPage $playlistPage.")
+                playlistPage?.getOrNull()?.let {
+                    ResponsePlayListPage("ok", it)
                 } ?: ResponsePlayListPage("null")
             }
             call.respond(status = HttpStatusCode.OK, result)
         }
 
         //continuation
-        get("/continuation/{continuation?}") {
-            val continuation = call.parameters["continuation"].orEmpty()
-            val result = withContext(Dispatchers.Default) {
-                // Do some asynchronous work here
-                val songQueue = Innertube.playlistPage(ContinuationBody(continuation = continuation))
-                println("searchPage $songQueue.")
-                songQueue?.onSuccess {
-                    ResponsePlayListPageContinuation("ok",  result = it)
-                } ?: ResponsePlayListPageContinuation("null")
-            }
-            call.respond(status = HttpStatusCode.OK, result)
-        }
+//        get("/continuation/{continuation?}") {
+//            val continuation = call.parameters["continuation"].orEmpty()
+//            val result = withContext(Dispatchers.Default) {
+//                // Do some asynchronous work here
+//                val songQueue = Innertube.playlistPage(ContinuationBody(continuation = continuation))
+//                println("searchPage $songQueue.")
+//                songQueue?.onSuccess {
+//                    ResponsePlayListPageContinuation("ok",  result = it)
+//                } ?: ResponsePlayListPageContinuation("null")
+//            }
+//            call.respond(status = HttpStatusCode.OK, result)
+//        }
     }
 
 
-    //player
+    //player _osQnC8dNyw
     route("/player") {
         get("{mediaId?}") {
             val mediaId = call.parameters["mediaId"].orEmpty()
@@ -254,8 +269,8 @@ fun Route.customerRouting() {
         }
     }
 
-    //itemsPage
-    /*route("/itemsPage") {
+    //itemsPage UC08qAR-kyTJb8Xjwbo6C7ZQ
+    route("/itemsPage") {
         post {
             val browseBody = call.receive<BrowseBody>()
 
@@ -272,9 +287,9 @@ fun Route.customerRouting() {
             }
             call.respond(status = HttpStatusCode.OK, result)
         }
-    }*/
+    }
 
-    //artistPage
+    //artistPage UC08qAR-kyTJb8Xjwbo6C7ZQ
     route("/artistPage") {
         get("{browseId?}") {
             val browseId = call.parameters["browseId"].orEmpty()

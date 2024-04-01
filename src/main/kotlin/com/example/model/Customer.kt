@@ -39,4 +39,4 @@ data class ResponseAlbumPage(val code: String,  val result: Innertube.PlaylistOr
 data class ResponseNextPage(val code: String, val size: Int? = 0,  val result: Innertube.NextPage? = null)
 
 @Serializable
-data class ResponseItemsPage(val code: String, val size: Int? = 0,  val result: Innertube.ItemsPage<Innertube.Item>? = null)
+data class ResponseItemsPage(val code: String, val size: Int? = 0,  val result: Innertube.ItemsPage<out Innertube.Item>? = null)
