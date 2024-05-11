@@ -13,6 +13,9 @@ val customerStorage = mutableListOf<Customer>()
 data class ResponseClass(val code: String, val result: List<String>? = null)
 
 @Serializable
+data class ResponseKey(val code: String, val result: Key? = null)
+
+@Serializable
 data class ResponseSearch(val code: String, val size: Int? = 0, val result: Innertube.ItemsPage<Innertube.Item>? = null)
 @Serializable
 data class ResponseRelated(val code: String, val size: Int? = 0, val result: Innertube.RelatedPage? = null)

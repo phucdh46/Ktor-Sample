@@ -5,7 +5,6 @@ import com.example.innertube.com.example.model.*
 import com.example.innertube.models.bodies.*
 import com.example.innertube.models.enums.SearchType
 import com.example.innertube.requests.*
-import com.example.innertube.utils.completed
 import com.example.innertube.utils.from
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -44,6 +43,13 @@ fun Route.customerRouting() {
 
             call.respond(status = HttpStatusCode.OK, result)
 
+        }
+    }
+
+    route("/key") {
+        get {
+            val result = ResponseKey("ok", Key())
+            call.respond(status = HttpStatusCode.OK, result)
         }
     }
 
