@@ -29,3 +29,7 @@ data class Runs(
         val navigationEndpoint: NavigationEndpoint?,
     )
 }
+
+fun List<Runs.Run>.oddElements() = filterIndexed { index, _ ->
+    index % 2 == 0
+}
